@@ -72,10 +72,11 @@ pwnm init pwn_chal_dir glibc_all_in_one_dir
   - 自动创建题目目录，复制模板 `exp.py`到本目录下并打开`vim exp.py`
   - 按模式复制 `awd/awdp` 模板并打开题目文件夹用于拖放题目（`awdp` 的 `result/` 用于存放`patch`后的二进制与 `update.sh`）
 
-  > [!CAUTION]
-  >
-  > 只能在`pwnm c competition_name`创建的比赛文件夹下创建题目文件夹
-  
+
+> [!IMPORTANT]
+>
+> 只能在`pwnm c competition_name`创建的比赛文件夹下创建题目文件夹
+
 - **检查保护机制**：
   ```bash
   pwnm cs binary_file
@@ -85,40 +86,40 @@ pwnm init pwn_chal_dir glibc_all_in_one_dir
   - 保存保护机制信息至`.pwnm/meta.json`
 
 - **自动提取 libc 版本与架构并替换**：
-  
+
   ```bash
   pwnm gl libc_file
   ```
   - 根据`libcc`版本和架构从 `glibc_all_in_one` 找到匹配版本的 `libc` 与 `ld`
   - 复制到本地目录并替换 `pwn` 的 `libc/ld`（可改+1 `line:512`，需要与上一步同步修改为相同的文件名）
   - 保存 libc 信息至`.pwnm/meta.json`
-  
+
 - **查看题目信息**：
-  
+
   ```bash
   pwnm i / pwnm info
   ```
   - 展示保护机制、libc 版本、架构、创建时间、比赛名、题目名
-  
+
 - **打tag**：
-  
+
   ```bash
   # 在题目文件夹中执行，可多标签标记题型/考点
   pwnm t xxx
   ```
-  
+
 - **打包 update 文件夹（AWDP模式）**：
-  
+
   ```bash
   # 在 awdp 模式的 result 文件夹下执行
   pwnm pack / pwnm upd
   ```
-  
+
   - 需要先将 patch 后的二进制文件复制进 `result/`
   - 该指令将自动打包整个文件夹并打开压缩包所在目录，方便从虚拟机拖出压缩包
-  
+
 - **可视化筛选（fzf）**：
-  
+
   ```bash
   pwnm st
   ```
