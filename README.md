@@ -72,7 +72,7 @@ pwnm init pwn_chal_dir glibc_all_in_one_dir
   - 自动创建题目目录，复制模板 `exp.py`到本目录下并打开`vim exp.py`
   - 按模式复制 `awd/awdp` 模板并打开题目文件夹用于拖放题目（`awdp` 的 `result/` 用于存放`patch`后的二进制与 `update.sh`）
 
-  > [!WARNING]
+  > [!CAUTION]
   >
   > 只能在`pwnm c competition_name`创建的比赛文件夹下创建题目文件夹
   
