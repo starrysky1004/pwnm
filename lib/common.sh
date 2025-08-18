@@ -453,7 +453,7 @@ pwnm_cmd_glibc(){
 	# Extract the text between "GLIBC " and the next ")" → 2.31-0ubuntu9.17
 	local ver="" 
 	ver=$(strings "$file" | grep -m1 "GNU C Library" | sed -n 's/.*GLIBC \([^)]*\)).*/\1/p')
-	[ -z "$ver" ] && { perror "GLIBC 版本解析失败(*꒦ິ⌓꒦ີ)"; return 1; }
+	[ -z "$ver" ] && { perror "GLIBC 版本解析失败"; return 1; }
 	pinfo "libc版本解析成功<(^-^)>: $ver"
 	# Detect architecture using checksec preferred to get arch/bits/endian and use arch part for glibc naming
 	local arch_dir="" file_out cs_out arch_line arch bits endian
@@ -474,7 +474,7 @@ pwnm_cmd_glibc(){
 			*"32-bit"*) arch_dir="i386" ;;
 		esac
 	fi
-	[ -z "$arch_dir" ] && { perror "程序架构识别失败(*꒦ິ⌓꒦ີ)"; return 1; }
+	[ -z "$arch_dir" ] && { perror "程序架构识别失败"; return 1; }
 
 	# Locate matching glibc directory under libs/: version_arch, e.g., 2.31-0ubuntu9.17_amd64
 	local cand
@@ -488,22 +488,22 @@ pwnm_cmd_glibc(){
 	local dst libc_path ld_path; dst="$(pwd)"
 	# Prefer libc.so.6, fallback to libc-*.so, under extracted libs path
 	libc_path=$(find "$cand" -maxdepth 3 -type f -name "libc.so.6" | head -n1)
-	[ -z "$libc_path" ] && libc_path=$(find "$cand" -maxdepth 3 -type f -name "libc-*.so" | head -n1)
+	[ -z "$libc_path" ] && libc_path=$(find "$cand" -maxdepth 1 -type f -name "libc-*.so" | head -n1)
 	# ld variants
-	ld_path=$(find "$cand" -maxdepth 3 -type f \( -name "ld-*.so" -o -name "ld-linux*.so*" \) | head -n1)
+	ld_path=$(find "$cand" -maxdepth 1 -type f \( -name "ld-*.so" -o -name "ld-linux*.so*" \) | head -n1)
 
 	local libc_base ld_base
 	if [ -n "$libc_path" ]; then
 		libc_base="$(basename "$libc_path")"
 		cp -f "$libc_path" "$dst/$libc_base"
 	else
-		pwarn "找不到 libc (*꒦ິ⌓꒦ີ)"
+		pwarn "找不到 libc "
 	fi
 	if [ -n "$ld_path" ]; then
 		ld_base="$(basename "$ld_path")"
 		cp -f "$ld_path" "$dst/$ld_base"
 	else
-		pwarn "找不到 ld (*꒦ິ⌓꒦ີ)"
+		pwarn "找不到 ld "
 	fi
 
 	pwnm_update_meta_libc "$dst" "$ver"
@@ -521,10 +521,6 @@ pwnm_cmd_glibc(){
 		if [ -n "$libc_base" ] && [ -f "$dst/$libc_base" ]; then
 			# Prefer direct local path to avoid system lookup precedence issues
 			patchelf --replace-needed "$orig_libc" "./$libc_base" "$bin" 2>/dev/null || true
-			# Keep rpath/runpath to $ORIGIN as a safety net
-			patchelf --remove-rpath "$bin" 2>/dev/null || true
-			patchelf --set-rpath '$ORIGIN' "$bin" 2>/dev/null || true
-			patchelf --set-runpath '$ORIGIN' "$bin" 2>/dev/null || true
 		fi
 		chmod 777 "$bin" 2>/dev/null || true
 		[ -n "$libc_base" ] && [ -f "$dst/$libc_base" ] && chmod 777 "$dst/$libc_base" 2>/dev/null || true
@@ -598,7 +594,7 @@ pwnm_cmd_pack_update(){
 		pwnm_open_folder "$dir"
 		return 0
 	else
-		perror "找不到 tar 命令 (*꒦ິ⌓꒦ີ)"
+		perror "找不到 tar 命令 "
 		return 1
 	fi
 }
@@ -648,4 +644,3 @@ pwnm_cmd_show_info(){
 
 # Aliases to be used by pwnm.sh dispatcher
 pwnm_perror(){ perror "$@"; }
-
