@@ -1,6 +1,6 @@
 
 
-# <img src="images/logo.png" alt="logo" style="zoom:10%;" /> 
+# ![logo](images/logo.png) 
 
 <div align="center">
 
@@ -461,7 +461,7 @@ pwnm open ~/pwn_challenge/XCTF2024
 
 ---
 
-### 🔧 秀嘎 exp 模板
+### 🔧 修改 exp 模板
 
 可以修改 `~/.pwnm/templates/` 下的模板文件：
 
