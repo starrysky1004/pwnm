@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "IDAPro": {
+      "type": "sse",
+      "url": "http://ip:3000/sse"
+    },
+    "gdb": {
+      "command": "uv",
+      "args": ["~/GDB-MCP/server.py"],
+      "disabled": false
+    }
+  }
+}

