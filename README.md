@@ -1,6 +1,6 @@
-
-
-# ![logo](images/logo.png) 
+<p align="center">
+  <img src="images/logo.png" width="200"/>
+</p>
 
 ✨ **让 PWN 题目管理变得简单** ✨
 
@@ -534,3 +534,4 @@ XCTF2024  baby_heap  /home/user/pwn_challenge/XCTF2024/baby_heap  2.31  amd64  P
 Made with ❤️ by [starrysky1004](https://github.com/starrysky1004) & [Rimuawa](https://github.com/Rimuawa)
 
 ٩(◕‿◕｡)۶ **Happy Pwning!** (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+
